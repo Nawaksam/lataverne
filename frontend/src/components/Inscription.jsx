@@ -1,12 +1,63 @@
 import PropTypes from "prop-types";
+import { useState } from "react";
+
+import backendApi from "../services/backendApi";
+import matchEmail from "../services/matchEmail";
 
 function Inscription({ toggle }) {
-  const handleSubmit = (evt) => {
+  const [errors, setErrors] = useState([]);
+
+  const [fields, setFields] = useState({
+    nickname: "",
+    email: "",
+    password: "",
+    passwordcheck: "",
+    invitation: "",
+  });
+
+  const handleFields = (evt) => {
+    setFields({ ...fields, [evt.target.id]: evt.target.value });
+  };
+
+  const handleSubmit = async (evt) => {
     evt.preventDefault();
+    const problems = [];
+
+    if (fields.nickname.length < 4) problems.push("Pseudonyme trop court");
+    if (!matchEmail(fields.email)) problems.push("Email mal formaté");
+    if (fields.password.length < 6) problems.push("Mot de passe trop court");
+    if (fields.password !== fields.passwordcheck)
+      problems.push("Le mots de passes ne correspondent pas");
+    if (fields.invitation.length < 6) problems.push("Invitation trop courte");
+
+    if (!problems.length) {
+      try {
+        const userInscription = await backendApi.post(
+          "/api/inscription",
+          fields
+        );
+
+        if (userInscription.status === 201) {
+          toggle();
+        }
+      } catch (err) {
+        console.error(err);
+        problems.push(err);
+      }
+    }
+
+    setErrors(problems);
   };
 
   return (
     <div className="bg-secondary lg:w-7/12 w-10/12 p-8 rounded-xl shadow-lg">
+      {Boolean(errors.length) && (
+        <ul className="flex flex-col gap-1 bg-error p-3 rounded-xl text-secondary mb-3">
+          {errors.map((msg) => (
+            <li>{`- ${msg}`}</li>
+          ))}
+        </ul>
+      )}
       <form
         onSubmit={handleSubmit}
         className="flex flex-col gap-2 text-acent text-2xl text-accent font-lobster2"
@@ -18,6 +69,8 @@ function Inscription({ toggle }) {
             id="nickname"
             name="nickname"
             className="input input-accent  shadow-md"
+            onChange={handleFields}
+            value={fields.nickname}
           />
         </div>
         <div className="flex flex-col gap-1">
@@ -27,6 +80,8 @@ function Inscription({ toggle }) {
             id="email"
             name="email"
             className="input input-accent  shadow-md"
+            onChange={handleFields}
+            value={fields.email}
           />
         </div>
         <div className="flex flex-col gap-1">
@@ -36,6 +91,8 @@ function Inscription({ toggle }) {
             id="password"
             name="password"
             className="input input-accent  shadow-md"
+            onChange={handleFields}
+            value={fields.password}
           />
         </div>
         <div className="flex flex-col gap-1">
@@ -45,6 +102,8 @@ function Inscription({ toggle }) {
             id="passwordcheck"
             name="passwordcheck"
             className="input input-accent  shadow-md"
+            onChange={handleFields}
+            value={fields.passwordcheck}
           />
         </div>
         <div className="flex flex-col gap-1">
@@ -54,6 +113,8 @@ function Inscription({ toggle }) {
             id="invitation"
             name="invitation"
             className="input input-accent  shadow-md"
+            onChange={handleFields}
+            value={fields.invitation}
           />
         </div>
         <button

@@ -8,16 +8,14 @@ import backendApi from "../services/backendApi";
 import matchEmail from "../services/matchEmail";
 
 function Connexion({ toggle }) {
-  const { user, setUser } = useUserContext();
-
   const navigate = useNavigate();
+  const { setUser } = useUserContext();
+  const [errors, setErrors] = useState([]);
 
   const [fields, setFields] = useState({
     email: "",
     password: "",
   });
-
-  const [errors, setErrors] = useState([]);
 
   const handleFields = (evt) => {
     setFields({ ...fields, [evt.target.id]: evt.target.value });
@@ -32,11 +30,11 @@ function Connexion({ toggle }) {
 
     if (!problems.length) {
       try {
-        const userLogin = await backendApi.post("/signin", fields);
+        const userConnexion = await backendApi.post("/api/connexion", fields);
 
-        if (userLogin.status === 200) {
-          setUser(userLogin.data);
-          localStorage.setItem("user", JSON.stringify(user.data));
+        if (userConnexion.status === 200) {
+          setUser(userConnexion.data);
+          localStorage.setItem("user", JSON.stringify(userConnexion.data));
           navigate("/comptoir");
         }
       } catch (err) {
