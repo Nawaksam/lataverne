@@ -2,7 +2,13 @@
 module.exports = {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        lobster: ["Lobster", "cursive"],
+        lobster2: ['"Lobster Two"', "cursive"],
+        poppins: ["Poppins", "sans-serif"],
+      },
+    },
   },
   daisyui: {
     themes: [

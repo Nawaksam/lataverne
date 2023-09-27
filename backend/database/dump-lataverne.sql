@@ -48,6 +48,31 @@ LOCK TABLES `comment` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `invitation`
+--
+
+DROP TABLE IF EXISTS `invitation`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `invitation` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `code` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `creation` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `invitation`
+--
+
+LOCK TABLES `invitation` WRITE;
+/*!40000 ALTER TABLE `invitation` DISABLE KEYS */;
+INSERT INTO `invitation` VALUES (1,'yololecode','2023-09-27 13:05:19');
+/*!40000 ALTER TABLE `invitation` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `post`
 --
 
@@ -117,4 +142,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-09-27  9:52:56
+-- Dump completed on 2023-09-27 14:01:09
