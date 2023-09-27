@@ -26,7 +26,7 @@ function App() {
           </a>
           {" | "}
           <a
-            className="App-link"
+            className="App-link btn btn-primary"
             href="https://vitejs.dev/guide/features.html"
             target="_blank"
             rel="noopener noreferrer"
