@@ -1,8 +1,11 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
+
+import { useUserContext } from "../contexts/UserContext";
+
 import backendApi from "../services/backendApi";
 import matchEmail from "../services/matchEmail";
-import { useUserContext } from "../contexts/UserContext";
-import { useNavigate } from "react-router-dom";
 
 function Connexion({ toggle }) {
   const { user, setUser } = useUserContext();
@@ -37,7 +40,7 @@ function Connexion({ toggle }) {
           navigate("/comptoir");
         }
       } catch (err) {
-        console.log(err);
+        console.error(err);
         problems.push(err);
       }
     }
@@ -108,5 +111,9 @@ function Connexion({ toggle }) {
     </div>
   );
 }
+
+Connexion.propTypes = {
+  toggle: PropTypes.func.isRequired,
+};
 
 export default Connexion;

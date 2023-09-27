@@ -1,10 +1,8 @@
-import React from "react";
+import PropTypes from "prop-types";
 
 function Inscription({ toggle }) {
   const handleSubmit = (evt) => {
     evt.preventDefault();
-
-    console.log("submit");
   };
 
   return (
@@ -78,5 +76,9 @@ function Inscription({ toggle }) {
     </div>
   );
 }
+
+Inscription.propTypes = {
+  toggle: PropTypes.func.isRequired,
+};
 
 export default Inscription;
