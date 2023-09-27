@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Connexion from "../Connexion";
-import Inscription from "../Inscription";
+import Connexion from "../components/Connexion";
+import Inscription from "../components/Inscription";
 
 function Landing() {
   const [toggleForm, setToggleForm] = useState(false);

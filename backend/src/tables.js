@@ -3,11 +3,11 @@
 /* ************************************************************************* */
 
 // Import the manager modules responsible for handling data operations on the tables
-const ItemManager = require("./models/ItemManager");
 const UserManager = require("./models/UserManager");
 const InvitationManager = require("./models/InvitationManager");
+const PostManager = require("./models/PostManager");
 
-const managers = [ItemManager, UserManager, InvitationManager];
+const managers = [UserManager, InvitationManager, PostManager];
 
 // Create an empty object to hold data managers for different tables
 const tables = {};

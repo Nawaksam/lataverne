@@ -1,7 +1,10 @@
 import { Routes, Route } from "react-router-dom";
-import Landing from "../components/structure/Landing";
-import Comptoir from "../components/structure/Comptoir";
-import Table from "../components/structure/Table";
+
+import Landing from "../pages/Landing";
+import Comptoir from "../pages/Comptoir";
+import Table from "../pages/Table";
+import Profil from "../pages/Profil";
+import Admin from "../pages/Admin";
 import Nope from "../components/structure/Nope";
 
 function AppRoutes() {
@@ -10,6 +13,8 @@ function AppRoutes() {
       <Route path="/" element={<Landing />} />
       <Route path="/comptoir" element={<Comptoir />} />
       <Route path="/table" element={<Table />} />
+      <Route path="/profil" element={<Profil />} />
+      <Route path="/admin" element={<Admin />} />
       <Route path="*" element={<Nope />} />
     </Routes>
   );

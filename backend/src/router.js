@@ -6,6 +6,14 @@ const router = express.Router();
 // Define Your API Routes Here
 /* ************************************************************************* */
 const {
+  validInscription,
+  checkUserFree,
+  registerUser,
+} = require("./middlewares/inscription");
+
+router.post("/inscription", validInscription, checkUserFree, registerUser);
+
+const {
   validConnexion,
   checkUserExist,
   tokenConnexion,
@@ -13,13 +21,9 @@ const {
 
 router.post("/connexion", validConnexion, checkUserExist, tokenConnexion);
 
-const {
-  validInscription,
-  checkUserFree,
-  registerUser,
-} = require("./middlewares/inscription");
+const postControllers = require("./controllers/postControllers");
 
-router.post("/inscription", validInscription, checkUserFree, registerUser);
+router.get("/posts", postControllers.browse);
 
 // Gestionnaire d'erreurs
 const { errorHandler } = require("./middlewares/errorHandler");
