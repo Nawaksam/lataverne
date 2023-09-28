@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { useUserContext } from "../contexts/UserContext";
 import backendApi from "../services/backendApi";
 
-function NewPost({ addition, setAddition }) {
+function NewPost({ addition, setAddition, postModalOpen, setPostModalOpen }) {
   const { user } = useUserContext();
 
   const [fields, setFields] = useState({
@@ -27,6 +27,10 @@ function NewPost({ addition, setAddition }) {
       if (res.status === 201) {
         setAddition(!addition);
         setFields({ title: "", content: "" });
+      }
+
+      if (postModalOpen) {
+        setPostModalOpen(false);
       }
     } catch (err) {
       console.error(err);
@@ -55,6 +59,9 @@ function NewPost({ addition, setAddition }) {
                   value={fields.title}
                   onChange={handleFields}
                   className="join-item input input-accent font-poppins  text-accent"
+                  required
+                  minLength="4"
+                  maxLength="50"
                 />
               </div>
               <div className="join join-vertical w-full">
@@ -70,15 +77,29 @@ function NewPost({ addition, setAddition }) {
                   value={fields.content}
                   onChange={handleFields}
                   className="join-item textarea textarea-accent font-poppins  text-accent"
+                  required
+                  minLength="10"
+                  maxLength="250"
                 />
               </div>
             </div>
-            <button
-              type="submit"
-              className="btn btn-secondary text-lg font-poppins text-accent"
-            >
-              Envoyer
-            </button>
+            <div className="flex justify-between">
+              {postModalOpen && (
+                <button
+                  type="button"
+                  className="btn btn-accent text-lg font-poppins text-secondary"
+                  onClick={() => setPostModalOpen(!postModalOpen)}
+                >
+                  FERMER
+                </button>
+              )}
+              <button
+                type="submit"
+                className="btn btn-secondary text-lg font-poppins text-accent"
+              >
+                Envoyer
+              </button>
+            </div>
           </form>
         </div>
       </div>
@@ -88,5 +109,13 @@ function NewPost({ addition, setAddition }) {
 NewPost.propTypes = {
   addition: PropTypes.bool.isRequired,
   setAddition: PropTypes.func.isRequired,
+  postModalOpen: PropTypes.bool,
+  setPostModalOpen: PropTypes.func,
 };
+
+NewPost.defaultProps = {
+  postModalOpen: undefined,
+  setPostModalOpen: undefined,
+};
+
 export default NewPost;
