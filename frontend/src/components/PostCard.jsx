@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { useUserContext } from "../contexts/UserContext";
 import backendApi from "../services/backendApi";
 import dateTimeFr from "../services/dateTimeFr";
+import Comments from "./Comments";
 
 function PostCard({ post, deletion, setDeletion }) {
   const { user } = useUserContext();
@@ -232,6 +233,7 @@ function PostCard({ post, deletion, setDeletion }) {
           <div />
         )}
       </div>
+      {commentsOpen && <Comments postId={post.id} />}
     </div>
   );
 }
