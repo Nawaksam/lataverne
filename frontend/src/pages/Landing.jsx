@@ -1,13 +1,24 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Connexion from "../components/Connexion";
 import Inscription from "../components/Inscription";
+import { useUserContext } from "../contexts/UserContext";
 
 function Landing() {
+  const { user } = useUserContext();
+
+  const navigate = useNavigate();
+
   const [toggleForm, setToggleForm] = useState(false);
 
   const handleToggle = () => {
     setToggleForm(!toggleForm);
   };
+
+  useEffect(() => {
+    if (user) navigate("/comptoir");
+  }, []);
+
   return (
     <div className="flex-grow flex flex-col  justify-evenly items-center">
       {toggleForm ? (

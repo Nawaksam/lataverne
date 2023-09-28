@@ -1,15 +1,31 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useUserContext } from "../../contexts/UserContext";
+import backendApi from "../../services/backendApi";
 
 function Header() {
-  const { user } = useUserContext();
+  const { user, setUser } = useUserContext();
+  const navigate = useNavigate();
+
+  const logOut = async () => {
+    try {
+      const res = await backendApi.get("/api/ciao");
+      if (res.status === 200) {
+        setUser(null);
+        localStorage.removeItem("user");
+        navigate("/");
+      }
+    } catch (err) {
+      console.error(err);
+    }
+    navigate("/");
+  };
 
   return (
-    <div className="w-full bg-primary flex items-center justify-between h-[10vh] font-lobster text-white lg:text-5xl text-3xl p-2 lg:rounded-b-xl">
+    <div className="w-full bg-primary flex items-center justify-between h-[10vh] min-h-[5rem] font-lobster text-white lg:text-5xl text-3xl p-2 lg:rounded-b-xl">
       <img
         src="/src/assets/tender.svg"
         alt="logo la taverne"
-        className="h-[8vh]"
+        className="h-[8vh] min-h-[5rem]"
       />
       <h2 className="mr-6">La Taverne</h2>
       <div className="hidden lg:flex gap-6 mr-6 text-2xl">
@@ -124,6 +140,30 @@ function Header() {
                 Admin
               </Link>
             )}
+            <button
+              type="button"
+              onClick={logOut}
+              className="flex flex-col justify-center items-center"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="45px"
+                height="45px"
+                fill="none"
+                strokeWidth="1.5"
+                viewBox="0 0 24 24"
+                color="#FAC150"
+              >
+                <path
+                  stroke="#FAC150"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="m5 19 2.333 1h9.334L19 19M8 22.01l.01-.011M16 22.01l.01-.011M7 7.833l3-1.5c2-1 4.27.568 4.27.568l-4.308 3.135L14 13.334v4M9.549 13.345l-1.24.827H5M15.165 9.21h2.722M17 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"
+                />
+              </svg>
+              Ciao !
+            </button>
           </>
         )}
       </div>
@@ -243,6 +283,32 @@ function Header() {
                   Administration
                 </Link>
               )}
+            </li>
+            <li>
+              <button
+                type="button"
+                onClick={logOut}
+                className="flex gap-6 items-center"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="30px"
+                  height="30px"
+                  fill="none"
+                  strokeWidth="1.5"
+                  viewBox="0 0 24 24"
+                  color="#1E698A"
+                >
+                  <path
+                    stroke="#1E698A"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="m5 19 2.333 1h9.334L19 19M8 22.01l.01-.011M16 22.01l.01-.011M7 7.833l3-1.5c2-1 4.27.568 4.27.568l-4.308 3.135L14 13.334v4M9.549 13.345l-1.24.827H5M15.165 9.21h2.722M17 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"
+                  />
+                </svg>
+                Ciao !
+              </button>
             </li>
           </ul>
         </details>

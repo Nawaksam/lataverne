@@ -1,9 +1,14 @@
 import { useEffect, useState } from "react";
 import backendApi from "../services/backendApi";
 import PostCard from "../components/PostCard";
+import NewPost from "../components/NewPost";
+import SideBlock from "../components/SideBlock";
 
 function Comptoir() {
   const [posts, setPosts] = useState(null);
+  const [deletion, setDeletion] = useState(false);
+  const [addition, setAddition] = useState(false);
+
   useEffect(() => {
     (async () => {
       try {
@@ -13,16 +18,25 @@ function Comptoir() {
         console.error(error);
       }
     })();
-  }, []);
+  }, [deletion, addition]);
 
   return (
     <>
       <div className="flex-grow flex flex-col">
         {posts?.map((elem) => (
-          <PostCard post={elem} key={elem.id} />
+          <PostCard
+            key={elem.id}
+            post={elem}
+            deletion={deletion}
+            setDeletion={setDeletion}
+          />
         ))}
       </div>
-      <div className="lg:flex hidden bg-amber-500 w-4/12">Write</div>
+      <div className="lg:flex flex-col justify-evenly items-center gap-6 hidden rounded-xl shadow-xl w-4/12 my-3 pb-3">
+        <NewPost addition={addition} setAddition={setAddition} />
+        <SideBlock title="Publicités" content="Le con-tenu" />
+        <SideBlock title="Sponsors" content="Le con-tenu" />
+      </div>
     </>
   );
 }

@@ -7,25 +7,34 @@ class PostManager extends AbstractManager {
 
   async readAll() {
     const [rows] = await this.database.query(
-      `select p.id, p.title, p.content, p.creation, u.nickname from ${this.table} p join user u on u.id = p.user_id order by creation desc`
+      `select p.id, p.user_id userId, p.title, p.content, p.creation, u.nickname from ${this.table} p join user u on u.id = p.user_id order by creation desc`
     );
 
     return rows;
   }
 
-  async getByEmail(email) {
+  async postOne({ title, content, userId }) {
     const [rows] = await this.database.query(
-      `select * from ${this.table} where email = ?`,
-      [email]
+      `insert into ${this.table} (title, content, user_id) VALUES (?,?,?)`,
+      [title, content, userId]
     );
 
     return rows;
   }
 
-  async postOne({ nickname, email, password }) {
+  async putOne(title, content, id) {
     const [rows] = await this.database.query(
-      `insert into ${this.table} (nickname, email, password) VALUES (?,?,?)`,
-      [nickname, email, password]
+      `update ${this.table} set title = ?, content = ? where id = ?`,
+      [title, content, id]
+    );
+
+    return rows;
+  }
+
+  async deleteOne(id) {
+    const [rows] = await this.database.query(
+      `delete from ${this.table} where id = ?`,
+      [id]
     );
 
     return rows;

@@ -45,8 +45,14 @@ const tokenConnexion = async (req, res) => {
   }
 };
 
+const logOut = (req, res) => {
+  res.clearCookie("auth_token");
+  res.status(200).send({ message: "Deconnexion effectuée avec succès" });
+};
+
 module.exports = {
   validConnexion,
   checkUserExist,
   tokenConnexion,
+  logOut,
 };
