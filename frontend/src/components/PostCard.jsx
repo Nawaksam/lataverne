@@ -28,6 +28,7 @@ function PostCard({ post, deletion, setDeletion }) {
 
   const handleCommentsOpen = () => {
     setCommentsOpen(!commentsOpen);
+    setCommentInput(false);
   };
 
   const handleCommentInput = () => {
@@ -274,7 +275,7 @@ function PostCard({ post, deletion, setDeletion }) {
       {commentInput && (
         <form
           onSubmit={postNewComment}
-          className="flex flex-col gap-2 w-full px-4 py-2 "
+          className="flex flex-col gap-2 w-full px-4 py-2 bg-secondary"
         >
           <div className="join join-vertical ">
             <label htmlFor="comment" className="join-item">
