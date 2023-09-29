@@ -6,8 +6,9 @@
 const UserManager = require("./models/UserManager");
 const InvitationManager = require("./models/InvitationManager");
 const PostManager = require("./models/PostManager");
+const CommentManager = require("./models/CommentManager");
 
-const managers = [UserManager, InvitationManager, PostManager];
+const managers = [UserManager, InvitationManager, PostManager, CommentManager];
 
 // Create an empty object to hold data managers for different tables
 const tables = {};

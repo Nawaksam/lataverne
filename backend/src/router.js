@@ -30,6 +30,12 @@ router.post("/posts", postControllers.add);
 router.put("/posts/:id", postControllers.edit);
 router.delete("/posts/:id", postControllers.destroy);
 
+const commentControllers = require("./controllers/commentControllers");
+
+router.get("/comments/:postId", commentControllers.read);
+router.post("/comments", commentControllers.add);
+router.put("/comments/:id", commentControllers.edit);
+router.delete("/comments/:id", commentControllers.destroy);
 // Gestionnaire d'erreurs
 const { errorHandler } = require("./middlewares/errorHandler");
 

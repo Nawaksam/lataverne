@@ -38,10 +38,14 @@ function Comptoir() {
           />
         ))}
       </div>
-      <div className="lg:flex flex-col justify-evenly items-center gap-6 hidden rounded-xl shadow-xl w-4/12 my-3 pb-3">
-        <NewPost addition={addition} setAddition={setAddition} />
-        <SideBlock title="Publicités" content="Le con-tenu" />
-        <SideBlock title="Sponsors" content="Le con-tenu" />
+      <div className="relative lg:flex hidden rounded-xl shadow-xl w-4/12 my-3 pb-3">
+        <div className="absolute inset-0 flex flex-col items-center gap-6 ">
+          <NewPost addition={addition} setAddition={setAddition} />
+          <div className="flex-grow w-full flex flex-col gap-6 justify-around">
+            <SideBlock title="Publicités" content="Le con-tenu" />
+            <SideBlock title="Sponsors" content="Le con-tenu" />
+          </div>
+        </div>
       </div>
       <div className="lg:hidden fixed bottom-6 right-6">
         <button

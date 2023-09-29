@@ -8,8 +8,10 @@ import Comments from "./Comments";
 
 function PostCard({ post, deletion, setDeletion }) {
   const { user } = useUserContext();
+
   const [commentsOpen, setCommentsOpen] = useState(false);
   const [editionMode, setEditionMode] = useState(false);
+  const [commentInput, setCommentInput] = useState(false);
   const [oldFields, setOldFields] = useState({
     title: post.title,
     content: post.content,
@@ -18,13 +20,41 @@ function PostCard({ post, deletion, setDeletion }) {
     title: post.title,
     content: post.content,
   });
+  const [newComment, setNewComment] = useState("");
+
+  const handleEditionMode = () => {
+    setEditionMode(!editionMode);
+  };
 
   const handleCommentsOpen = () => {
     setCommentsOpen(!commentsOpen);
   };
 
-  const handleEditionMode = () => {
-    setEditionMode(!editionMode);
+  const handleCommentInput = () => {
+    setCommentInput(!commentInput);
+  };
+
+  const handleNewComment = (evt) => {
+    setNewComment(evt.target.value);
+  };
+
+  const postNewComment = async (evt) => {
+    evt.preventDefault();
+
+    try {
+      const body = {
+        postId: post.id,
+        userId: user.id,
+        content: newComment,
+      };
+      const res = await backendApi.post(`/api/comments/`, body);
+      if (res.status === 201) {
+        setNewComment("");
+        setCommentInput(!commentInput);
+      }
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const handleInputs = (evt) => {
@@ -134,7 +164,11 @@ function PostCard({ post, deletion, setDeletion }) {
           </div>
         )}
       </div>
-      <div className="grid grid-cols-[2fr_1fr_1fr] justify-center items-center bg-secondary py-2 px-4 text-accent font-lobster rounded-b-xl">
+      <div
+        className={`grid grid-cols-[2fr_1fr_1fr] justify-center items-center bg-secondary py-2 px-4 text-accent font-lobster ${
+          commentsOpen ? "rounded-none" : "rounded-b-xl"
+        }`}
+      >
         <button
           type="button"
           onClick={handleCommentsOpen}
@@ -209,7 +243,11 @@ function PostCard({ post, deletion, setDeletion }) {
           </svg>
         </div>
         {commentsOpen ? (
-          <div className="flex justify-center items-center gap-2">
+          <button
+            type="button"
+            onClick={handleCommentInput}
+            className="flex justify-center items-center gap-2"
+          >
             <div className="lg:flex hidden text-lg">Ajouter</div>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -228,12 +266,35 @@ function PostCard({ post, deletion, setDeletion }) {
                 d="m20.777 13.345-7.297 8.027a2 2 0 0 1-2.96 0l-7.297-8.027a2 2 0 0 1 0-2.69l7.297-8.027a2 2 0 0 1 2.96 0l7.297 8.027a2 2 0 0 1 0 2.69ZM9 12h3m3 0h-3m0 0V9m0 3v3"
               />
             </svg>
-          </div>
+          </button>
         ) : (
           <div />
         )}
       </div>
-      {commentsOpen && <Comments postId={post.id} />}
+      {commentInput && (
+        <form
+          onSubmit={postNewComment}
+          className="flex flex-col gap-2 w-full px-4 py-2 "
+        >
+          <div className="join join-vertical ">
+            <label htmlFor="comment" className="join-item">
+              Ajoutez votre commentaire :
+            </label>
+            <textarea
+              type="text"
+              name="comment"
+              id="comment"
+              className="textarea textarea-accent join-item"
+              value={newComment}
+              onChange={handleNewComment}
+            />
+          </div>
+          <button type="submit" className="btn btn-primary btn-sm self-end">
+            Envoyer
+          </button>
+        </form>
+      )}
+      {commentsOpen && <Comments newComment={commentInput} postId={post.id} />}
     </div>
   );
 }

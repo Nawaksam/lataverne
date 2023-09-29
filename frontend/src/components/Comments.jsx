@@ -1,18 +1,50 @@
+import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { useUserContext } from "../contexts/UserContext";
+import Comment from "./Comment";
+import backendApi from "../services/backendApi";
 
-function Comments({ postId }) {
-  const { user } = useUserContext();
+function Comments({ newComment, postId }) {
+  const [comments, setComments] = useState([]);
+  const [modification, setModification] = useState(false);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await backendApi.get(`/api/comments/${postId}`);
+
+        if (res.status === 200) {
+          setComments(res.data);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    })();
+  }, [newComment, modification]);
+
   return (
-    <div className="px-4">
-      <p>
-        postId: {postId} userId: {user.id}
-      </p>
-    </div>
+    // eslint-disable-next-line react/jsx-no-useless-fragment
+    <>
+      {comments.length ? (
+        <div className="flex flex-col bg-secondary p-2 gap-2 rounded-b-xl">
+          {comments.map((elem) => (
+            <Comment
+              comment={elem}
+              modification={modification}
+              setModification={setModification}
+            />
+          ))}
+        </div>
+      ) : (
+        <div className=" bg-secondary p-4 rounded-b-xl font-poppins">
+          Aucun commentaire pour l'instant
+        </div>
+      )}
+    </>
   );
 }
 
 Comments.propTypes = {
   postId: PropTypes.number.isRequired,
+  newComment: PropTypes.string.isRequired,
 };
 export default Comments;
