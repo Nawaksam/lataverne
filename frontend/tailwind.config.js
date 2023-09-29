@@ -28,9 +28,9 @@ module.exports = {
       {
         taverneDark: {
           primary: "#1E698A", // blue
-          secondary: "#FAC150", // honey
-          accent: "#7B2705", // chocolate
-          neutral: "#B1B1B1", // silver
+          secondary: "#7B2705", // honey
+          accent: "#FAC150", // chocolate 7B2705
+          neutral: "#7B2705", // silver
           "base-100": "#292524", //f5efed creamwhite
           info: "#2274A5",
           success: "#135e45",
