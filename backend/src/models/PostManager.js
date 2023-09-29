@@ -7,7 +7,10 @@ class PostManager extends AbstractManager {
 
   async readAll() {
     const [rows] = await this.database.query(
-      `select p.id, p.user_id userId, p.title, p.content, p.creation, u.nickname, (select count(*) from comment where post_id = p.id) commentsCount
+      `select p.id, p.user_id userId, p.title, p.content, p.creation, u.nickname,
+      (select count(*) from comment where post_id = p.id) commentsCount,
+      (select sum(upvote) from post_votes pv where pv.post_id = p.id) upvoteCount,
+      (select sum(downvote) from post_votes pv where pv.post_id = p.id) downvoteCount
       from ${this.table} p 
       join user u on u.id = p.user_id 
       order by creation desc`

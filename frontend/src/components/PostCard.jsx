@@ -167,7 +167,7 @@ function PostCard({ post, modification, setModification }) {
         )}
       </div>
       <div
-        className={`grid grid-cols-[2fr_1fr_1fr] justify-center items-center bg-secondary py-2 px-4 text-accent font-lobster ${
+        className={`flex justify-between items-center bg-secondary py-2 px-4 text-accent font-lobster ${
           commentsOpen ? "rounded-none" : "rounded-b-xl"
         }`}
       >
@@ -198,53 +198,59 @@ function PostCard({ post, modification, setModification }) {
             />
           </svg>
         </button>
-        <div className="flex justify-center items-center gap-6">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="25px"
-            height="25px"
-            fill="none"
-            strokeWidth="1.5"
-            viewBox="0 0 24 24"
-            color="#7B2705"
-          >
-            <path
-              stroke="#7B2705"
+        <div className="flex justify-center items-center gap-4">
+          <div className="flex gap-2 ">
+            <p>{post.upvoteCount ? post.upvoteCount : "0"}</p>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="25px"
+              height="25px"
+              fill="none"
               strokeWidth="1.5"
-              strokeLinecap="round"
-              d="M16.472 20H4.1a.6.6 0 0 1-.6-.6V9.6a.6.6 0 0 1 .6-.6h2.768a2 2 0 0 0 1.715-.971l2.71-4.517a1.631 1.631 0 0 1 2.961 1.308l-1.022 3.408a.6.6 0 0 0 .574.772h4.575a2 2 0 0 1 1.93 2.526l-1.91 7A2 2 0 0 1 16.473 20Z"
-            />
-            <path
-              stroke="#7B2705"
+              viewBox="0 0 24 24"
+              color="#7B2705"
+            >
+              <path
+                stroke="#7B2705"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                d="M16.472 20H4.1a.6.6 0 0 1-.6-.6V9.6a.6.6 0 0 1 .6-.6h2.768a2 2 0 0 0 1.715-.971l2.71-4.517a1.631 1.631 0 0 1 2.961 1.308l-1.022 3.408a.6.6 0 0 0 .574.772h4.575a2 2 0 0 1 1.93 2.526l-1.91 7A2 2 0 0 1 16.473 20Z"
+              />
+              <path
+                stroke="#7B2705"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M7 20V9"
+              />
+            </svg>
+          </div>
+          <div className="flex gap-2 ">
+            <p>{post.downvoteCount ? post.downvoteCount : "0"}</p>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="25px"
+              height="25px"
+              fill="none"
               strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M7 20V9"
-            />
-          </svg>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="25px"
-            height="25px"
-            fill="none"
-            strokeWidth="1.5"
-            viewBox="0 0 24 24"
-            color="#7B2705"
-          >
-            <path
-              stroke="#7B2705"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              d="M16.472 3.5H4.1a.6.6 0 0 0-.6.6v9.8a.6.6 0 0 0 .6.6h2.768a2 2 0 0 1 1.715.971l2.71 4.517a1.631 1.631 0 0 0 2.961-1.308l-1.022-3.408a.6.6 0 0 1 .574-.772h4.575a2 2 0 0 0 1.93-2.526l-1.91-7A2 2 0 0 0 16.473 3.5Z"
-            />
-            <path
-              stroke="#7B2705"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M7 14.5v-11"
-            />
-          </svg>
+              viewBox="0 0 24 24"
+              color="#7B2705"
+            >
+              <path
+                stroke="#7B2705"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                d="M16.472 3.5H4.1a.6.6 0 0 0-.6.6v9.8a.6.6 0 0 0 .6.6h2.768a2 2 0 0 1 1.715.971l2.71 4.517a1.631 1.631 0 0 0 2.961-1.308l-1.022-3.408a.6.6 0 0 1 .574-.772h4.575a2 2 0 0 0 1.93-2.526l-1.91-7A2 2 0 0 0 16.473 3.5Z"
+              />
+              <path
+                stroke="#7B2705"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M7 14.5v-11"
+              />
+            </svg>
+          </div>
         </div>
         {commentsOpen ? (
           <button
@@ -319,6 +325,8 @@ PostCard.propTypes = {
     title: PropTypes.string.isRequired,
     content: PropTypes.string.isRequired,
     commentsCount: PropTypes.number.isRequired,
+    upvoteCount: PropTypes.number.isRequired,
+    downvoteCount: PropTypes.number.isRequired,
   }).isRequired,
   modification: PropTypes.bool.isRequired,
   setModification: PropTypes.func.isRequired,
