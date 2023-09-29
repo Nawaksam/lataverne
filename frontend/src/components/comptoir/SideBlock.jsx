@@ -6,7 +6,7 @@ function SideBlock({ title, content }) {
       <h3 className="bg-primary w-full text-center p-2 text-2xl text-white font-lobster rounded-t-xl">
         {title}
       </h3>
-      <div className=" flex flex-col justify-center p-2 border-x-2 border-b-2 border-accent h-32 rounded-b-xl shadow-lg">
+      <div className=" flex flex-col justify-center p-2 border-x-2 border-b-2 border-accent py-16 rounded-b-xl shadow-lg">
         <p>{content}</p>
       </div>
     </div>

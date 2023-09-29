@@ -1,9 +1,9 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 
-import { useUserContext } from "../contexts/UserContext";
-import dateTimeFr from "../services/dateTimeFr";
-import backendApi from "../services/backendApi";
+import { useUserContext } from "../../contexts/UserContext";
+import dateTimeFr from "../../services/dateTimeFr";
+import backendApi from "../../services/backendApi";
 
 function Comment({ comment, modification, setModification }) {
   const { user } = useUserContext();

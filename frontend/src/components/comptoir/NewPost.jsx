@@ -1,7 +1,7 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
-import { useUserContext } from "../contexts/UserContext";
-import backendApi from "../services/backendApi";
+import { useUserContext } from "../../contexts/UserContext";
+import backendApi from "../../services/backendApi";
 
 function NewPost({
   modification,

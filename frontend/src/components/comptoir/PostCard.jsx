@@ -1,9 +1,9 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 
-import { useUserContext } from "../contexts/UserContext";
-import backendApi from "../services/backendApi";
-import dateTimeFr from "../services/dateTimeFr";
+import { useUserContext } from "../../contexts/UserContext";
+import backendApi from "../../services/backendApi";
+import dateTimeFr from "../../services/dateTimeFr";
 import Comments from "./Comments";
 
 function PostCard({ post, modification, setModification }) {

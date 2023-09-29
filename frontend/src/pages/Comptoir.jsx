@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import backendApi from "../services/backendApi";
-import PostCard from "../components/PostCard";
-import NewPost from "../components/NewPost";
-import SideBlock from "../components/SideBlock";
-import PostModal from "../components/PostModal";
+import PostCard from "../components/comptoir/PostCard";
+import NewPost from "../components/comptoir/NewPost";
+import SideBlock from "../components/comptoir/SideBlock";
+import PostModal from "../components/comptoir/PostModal";
 
 function Comptoir() {
   const [posts, setPosts] = useState(null);
@@ -37,8 +37,8 @@ function Comptoir() {
           />
         ))}
       </div>
-      <div className="relative lg:flex hidden rounded-xl shadow-xl w-4/12 my-3 pb-3">
-        <div className="absolute inset-0 flex flex-col items-center gap-6 ">
+      <div className="lg:flex hidden rounded-xl shadow-xl w-4/12 my-3 pb-3">
+        <div className=" flex flex-col items-center gap-6 ">
           <NewPost
             modification={modification}
             setModification={setModification}

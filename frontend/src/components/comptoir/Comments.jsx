@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import Comment from "./Comment";
-import backendApi from "../services/backendApi";
+import backendApi from "../../services/backendApi";
 
 function Comments({ newComment, postId, modification, setModification }) {
   const [comments, setComments] = useState([]);
