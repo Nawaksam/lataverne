@@ -16,7 +16,9 @@ function AppRoutes() {
     <Routes>
       <Route path="/" element={<Landing />} />
 
-      <Route element={<ProtectedRoute isAllowed={user} redirectPath="/" />}>
+      <Route
+        element={<ProtectedRoute isAllowed={Boolean(user)} redirectPath="/" />}
+      >
         <Route path="/comptoir" element={<Comptoir />} />
         <Route path="/table" element={<Table />} />
         <Route path="/profil" element={<Profil />} />

@@ -14,6 +14,6 @@ ProtectedRoute.propTypes = {
 ProtectedRoute.defaultProps = {
   redirectPath: "/",
   children: null,
-  isAllowed: false,
+  isAllowed: null,
 };
 export default ProtectedRoute;

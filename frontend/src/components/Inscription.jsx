@@ -22,7 +22,6 @@ function Inscription({ toggle }) {
   const handleSubmit = async (evt) => {
     evt.preventDefault();
     const problems = [];
-
     if (fields.nickname.length < 4) problems.push("Pseudonyme trop court");
     if (!matchEmail(fields.email)) problems.push("Email mal formaté");
     if (fields.password.length < 6) problems.push("Mot de passe trop court");
@@ -42,7 +41,7 @@ function Inscription({ toggle }) {
         }
       } catch (err) {
         console.error(err);
-        problems.push(err);
+        problems.push(err.data.message);
       }
     }
 
@@ -54,7 +53,7 @@ function Inscription({ toggle }) {
       {Boolean(errors.length) && (
         <ul className="flex flex-col gap-1 bg-error p-3 rounded-xl text-secondary mb-3">
           {errors.map((msg) => (
-            <li>{`- ${msg}`}</li>
+            <li key={msg}>{`- ${msg}`}</li>
           ))}
         </ul>
       )}
@@ -68,6 +67,8 @@ function Inscription({ toggle }) {
             type="text"
             id="nickname"
             name="nickname"
+            minLength="4"
+            required
             className="input input-accent  shadow-md"
             onChange={handleFields}
             value={fields.nickname}
@@ -79,6 +80,8 @@ function Inscription({ toggle }) {
             type="text"
             id="email"
             name="email"
+            minLength="6"
+            required
             className="input input-accent  shadow-md"
             onChange={handleFields}
             value={fields.email}
@@ -90,9 +93,11 @@ function Inscription({ toggle }) {
             type="password"
             id="password"
             name="password"
-            className="input input-accent  shadow-md"
+            minLength="6"
+            required
             onChange={handleFields}
             value={fields.password}
+            className="input input-accent  shadow-md"
           />
         </div>
         <div className="flex flex-col gap-1">
@@ -112,6 +117,8 @@ function Inscription({ toggle }) {
             type="text"
             id="invitation"
             name="invitation"
+            minLength="6"
+            required
             className="input input-accent  shadow-md"
             onChange={handleFields}
             value={fields.invitation}

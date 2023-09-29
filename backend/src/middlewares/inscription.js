@@ -17,7 +17,7 @@ const checkUserFree = async (req, res, next) => {
     const [user] = await tables.user.getByEmail(req.body.email);
 
     if (user) {
-      res.status(400).send({ message: "user already exist" });
+      res.status(400).send({ message: "Cet utilisateur existe déjà" });
     } else {
       next();
     }

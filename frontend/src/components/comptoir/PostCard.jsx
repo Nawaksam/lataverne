@@ -353,11 +353,17 @@ PostCard.propTypes = {
     title: PropTypes.string.isRequired,
     content: PropTypes.string.isRequired,
     commentsCount: PropTypes.number.isRequired,
-    upvoteCount: PropTypes.number.isRequired,
-    downvoteCount: PropTypes.number.isRequired,
-  }).isRequired,
+    upvoteCount: PropTypes.string,
+    downvoteCount: PropTypes.string,
+  }),
   modification: PropTypes.bool.isRequired,
   setModification: PropTypes.func.isRequired,
 };
 
+PostCard.defaultProps = {
+  post: PropTypes.shape({
+    upvoteCount: null,
+    downvoteCount: null,
+  }),
+};
 export default PostCard;

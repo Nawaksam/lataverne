@@ -41,7 +41,7 @@ function Connexion({ toggle }) {
         }
       } catch (err) {
         console.error(err);
-        problems.push(err);
+        problems.push(err.data.message);
       }
     }
 
@@ -69,6 +69,8 @@ function Connexion({ toggle }) {
             type="text"
             id="email"
             name="email"
+            minLength="6"
+            required
             className={`input input-accent  shadow-md ${
               matchEmail(fields.email)
                 ? "border-success focus:border-success"
@@ -86,6 +88,8 @@ function Connexion({ toggle }) {
             type="password"
             id="password"
             name="password"
+            minLength="6"
+            required
             className="input input-accent  shadow-md"
             value={fields?.password}
             onChange={handleFields}
