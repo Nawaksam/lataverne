@@ -96,6 +96,27 @@ function PostCard({ post, modification, setModification }) {
     }
   };
 
+  const handleVote = async (evt) => {
+    const body = {
+      userId: user.id,
+      upvote: 0,
+      downvote: 0,
+    };
+
+    if (evt.target.id === "upvote") {
+      body.upvote = 1;
+    } else {
+      body.downvote = 1;
+    }
+
+    try {
+      const res = await backendApi.post(`/api/vote/${post.id}`, body);
+      if (res.status === 201) setModification(!modification);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <div className="m-3 font-poppins rounded-xl shadow-lg">
       <div className="flex flex-col lg:flex-row lg:justify-between lg:gap-4 gap-2 bg-primary py-2 px-4 text-white rounded-t-xl ">
@@ -199,12 +220,18 @@ function PostCard({ post, modification, setModification }) {
           </svg>
         </button>
         <div className="flex justify-center items-center gap-4">
-          <div className="flex gap-2 ">
-            <p>{post.upvoteCount ? post.upvoteCount : "0"}</p>
+          <button
+            type="button"
+            id="upvote"
+            onClick={handleVote}
+            className="flex gap-2 "
+          >
+            <p id="upvote">{post.upvoteCount ? post.upvoteCount : "0"}</p>
             <svg
+              id="upvote"
               xmlns="http://www.w3.org/2000/svg"
-              width="25px"
-              height="25px"
+              width="24px"
+              height="24px"
               fill="none"
               strokeWidth="1.5"
               viewBox="0 0 24 24"
@@ -224,10 +251,11 @@ function PostCard({ post, modification, setModification }) {
                 d="M7 20V9"
               />
             </svg>
-          </div>
-          <div className="flex gap-2 ">
-            <p>{post.downvoteCount ? post.downvoteCount : "0"}</p>
+          </button>
+          <button type="button" onClick={handleVote} className="flex gap-2 ">
+            <p id="downvote">{post.downvoteCount ? post.downvoteCount : "0"}</p>
             <svg
+              id="downvote"
               xmlns="http://www.w3.org/2000/svg"
               width="25px"
               height="25px"
@@ -250,7 +278,7 @@ function PostCard({ post, modification, setModification }) {
                 d="M7 14.5v-11"
               />
             </svg>
-          </div>
+          </button>
         </div>
         {commentsOpen ? (
           <button
@@ -278,7 +306,7 @@ function PostCard({ post, modification, setModification }) {
             </svg>
           </button>
         ) : (
-          <div />
+          <div className="lg:w-[85px] w-[25px]" />
         )}
       </div>
       {commentInput && (

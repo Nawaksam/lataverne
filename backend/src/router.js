@@ -36,6 +36,11 @@ router.get("/comments/:postId", commentControllers.read);
 router.post("/comments", commentControllers.add);
 router.put("/comments/:id", commentControllers.edit);
 router.delete("/comments/:id", commentControllers.destroy);
+
+const voteControllers = require("./controllers/voteControllers");
+
+router.post("/vote/:postId", voteControllers.vote);
+
 // Gestionnaire d'erreurs
 const { errorHandler } = require("./middlewares/errorHandler");
 

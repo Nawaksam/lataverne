@@ -3,12 +3,19 @@
 /* ************************************************************************* */
 
 // Import the manager modules responsible for handling data operations on the tables
-const UserManager = require("./models/UserManager");
+const CommentManager = require("./models/CommentManager");
 const InvitationManager = require("./models/InvitationManager");
 const PostManager = require("./models/PostManager");
-const CommentManager = require("./models/CommentManager");
+const UserManager = require("./models/UserManager");
+const VoteManager = require("./models/VoteManager");
 
-const managers = [UserManager, InvitationManager, PostManager, CommentManager];
+const managers = [
+  CommentManager,
+  InvitationManager,
+  PostManager,
+  UserManager,
+  VoteManager,
+];
 
 // Create an empty object to hold data managers for different tables
 const tables = {};
