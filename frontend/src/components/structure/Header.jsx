@@ -13,7 +13,7 @@ function Header() {
 
   const logOut = async () => {
     try {
-      const res = await backendApi.get("/api/ciao");
+      const res = await backendApi.get("/api/connexion/ciao");
       if (res.status === 200) {
         setUser(null);
         localStorage.removeItem("user");
