@@ -3,9 +3,8 @@ import PropTypes from "prop-types";
 import Comment from "./Comment";
 import backendApi from "../services/backendApi";
 
-function Comments({ newComment, postId }) {
+function Comments({ newComment, postId, modification, setModification }) {
   const [comments, setComments] = useState([]);
-  const [modification, setModification] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -46,5 +45,7 @@ function Comments({ newComment, postId }) {
 Comments.propTypes = {
   postId: PropTypes.number.isRequired,
   newComment: PropTypes.string.isRequired,
+  modification: PropTypes.bool.isRequired,
+  setModification: PropTypes.func.isRequired,
 };
 export default Comments;

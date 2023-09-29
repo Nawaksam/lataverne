@@ -6,7 +6,7 @@ import backendApi from "../services/backendApi";
 import dateTimeFr from "../services/dateTimeFr";
 import Comments from "./Comments";
 
-function PostCard({ post, deletion, setDeletion }) {
+function PostCard({ post, modification, setModification }) {
   const { user } = useUserContext();
 
   const [commentsOpen, setCommentsOpen] = useState(false);
@@ -52,6 +52,7 @@ function PostCard({ post, deletion, setDeletion }) {
       if (res.status === 201) {
         setNewComment("");
         setCommentInput(!commentInput);
+        setModification(!modification);
       }
     } catch (err) {
       console.error(err);
@@ -88,7 +89,7 @@ function PostCard({ post, deletion, setDeletion }) {
       const res = await backendApi.delete(`/api/posts/${post.id}`);
 
       if (res.status === 204) {
-        setDeletion(!deletion);
+        setModification(!modification);
       }
     } catch (err) {
       console.error(err);
@@ -175,7 +176,9 @@ function PostCard({ post, deletion, setDeletion }) {
           onClick={handleCommentsOpen}
           className="flex justify-center items-center gap-2"
         >
-          <p className="text-lg">Commentaires</p>
+          <p className="text-lg">
+            <span className="mx-2">{post.commentsCount}</span>Commentaires
+          </p>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="25px"
@@ -295,7 +298,14 @@ function PostCard({ post, deletion, setDeletion }) {
           </button>
         </form>
       )}
-      {commentsOpen && <Comments newComment={commentInput} postId={post.id} />}
+      {commentsOpen && (
+        <Comments
+          modification={modification}
+          setModification={setModification}
+          newComment={commentInput}
+          postId={post.id}
+        />
+      )}
     </div>
   );
 }
@@ -308,9 +318,10 @@ PostCard.propTypes = {
     creation: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     content: PropTypes.string.isRequired,
+    commentsCount: PropTypes.number.isRequired,
   }).isRequired,
-  deletion: PropTypes.bool.isRequired,
-  setDeletion: PropTypes.func.isRequired,
+  modification: PropTypes.bool.isRequired,
+  setModification: PropTypes.func.isRequired,
 };
 
 export default PostCard;

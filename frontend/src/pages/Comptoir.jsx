@@ -7,8 +7,7 @@ import PostModal from "../components/PostModal";
 
 function Comptoir() {
   const [posts, setPosts] = useState(null);
-  const [deletion, setDeletion] = useState(false);
-  const [addition, setAddition] = useState(false);
+  const [modification, setModification] = useState(false);
   const [postModalOpen, setPostModalOpen] = useState(false);
 
   useEffect(() => {
@@ -20,7 +19,7 @@ function Comptoir() {
         console.error(error);
       }
     })();
-  }, [deletion, addition]);
+  }, [modification]);
 
   const handlePostModal = () => {
     setPostModalOpen(!postModalOpen);
@@ -33,14 +32,17 @@ function Comptoir() {
           <PostCard
             key={elem.id}
             post={elem}
-            deletion={deletion}
-            setDeletion={setDeletion}
+            modification={modification}
+            setModification={setModification}
           />
         ))}
       </div>
       <div className="relative lg:flex hidden rounded-xl shadow-xl w-4/12 my-3 pb-3">
         <div className="absolute inset-0 flex flex-col items-center gap-6 ">
-          <NewPost addition={addition} setAddition={setAddition} />
+          <NewPost
+            modification={modification}
+            setModification={setModification}
+          />
           <div className="flex-grow w-full flex flex-col gap-6 justify-around">
             <SideBlock title="Publicités" content="Le con-tenu" />
             <SideBlock title="Sponsors" content="Le con-tenu" />
@@ -74,8 +76,8 @@ function Comptoir() {
       </div>
       {postModalOpen && (
         <PostModal
-          addition={addition}
-          setAddition={setAddition}
+          modification={modification}
+          setModification={setModification}
           postModalOpen={postModalOpen}
           setPostModalOpen={setPostModalOpen}
         />

@@ -3,7 +3,12 @@ import PropTypes from "prop-types";
 import { useUserContext } from "../contexts/UserContext";
 import backendApi from "../services/backendApi";
 
-function NewPost({ addition, setAddition, postModalOpen, setPostModalOpen }) {
+function NewPost({
+  modification,
+  setModification,
+  postModalOpen,
+  setPostModalOpen,
+}) {
   const { user } = useUserContext();
 
   const [fields, setFields] = useState({
@@ -25,7 +30,7 @@ function NewPost({ addition, setAddition, postModalOpen, setPostModalOpen }) {
       });
 
       if (res.status === 201) {
-        setAddition(!addition);
+        setModification(!modification);
         setFields({ title: "", content: "" });
       }
 
@@ -107,8 +112,8 @@ function NewPost({ addition, setAddition, postModalOpen, setPostModalOpen }) {
   );
 }
 NewPost.propTypes = {
-  addition: PropTypes.bool.isRequired,
-  setAddition: PropTypes.func.isRequired,
+  modification: PropTypes.bool.isRequired,
+  setModification: PropTypes.func.isRequired,
   postModalOpen: PropTypes.bool,
   setPostModalOpen: PropTypes.func,
 };

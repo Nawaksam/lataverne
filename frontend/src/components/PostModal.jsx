@@ -1,13 +1,18 @@
 import PropTypes from "prop-types";
 import NewPost from "./NewPost";
 
-function PostModal({ addition, setAddition, postModalOpen, setPostModalOpen }) {
+function PostModal({
+  modification,
+  setModification,
+  postModalOpen,
+  setPostModalOpen,
+}) {
   return (
     <div className="fixed inset-0 bg-accent bg-opacity-50 flex justify-center items-center">
       <div className="bg-base-100 m-2 py-3 rounded-xl">
         <NewPost
-          addition={addition}
-          setAddition={setAddition}
+          modification={modification}
+          setModification={setModification}
           postModalOpen={postModalOpen}
           setPostModalOpen={setPostModalOpen}
         />
@@ -17,8 +22,8 @@ function PostModal({ addition, setAddition, postModalOpen, setPostModalOpen }) {
 }
 
 PostModal.propTypes = {
-  addition: PropTypes.bool.isRequired,
-  setAddition: PropTypes.func.isRequired,
+  modification: PropTypes.bool.isRequired,
+  setModification: PropTypes.func.isRequired,
   postModalOpen: PropTypes.bool,
   setPostModalOpen: PropTypes.func,
 };
