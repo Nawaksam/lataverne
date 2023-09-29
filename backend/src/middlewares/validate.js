@@ -1,11 +1,23 @@
-const { postSchema } = require("../validators/postValidators");
+const {
+  postSchema,
+  postUpdateSchema,
+} = require("../validators/postValidators");
 const {
   commentSchema,
   commentUpdateSchema,
 } = require("../validators/commentValidators");
 
-const post = (req, res, next) => {
+const newPost = (req, res, next) => {
   const { error } = postSchema.validate(req.body);
+  if (error) {
+    next(error);
+  } else {
+    next();
+  }
+};
+
+const updatePost = (req, res, next) => {
+  const { error } = postUpdateSchema.validate(req.body);
   if (error) {
     next(error);
   } else {
@@ -31,7 +43,7 @@ const updateComment = (req, res, next) => {
   }
 };
 
-module.exports = { post, newComment, updateComment };
+module.exports = { newPost, updatePost, newComment, updateComment };
 
 // const validate = (schema) => {
 //   (req, res, next) => {
