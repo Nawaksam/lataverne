@@ -29,12 +29,12 @@ function Landing() {
       {!toggleForm && (
         <>
           <img
-            src="/src/assets/waitress.svg"
+            src="/assets/waitress.svg"
             alt="logo la taverne"
             className="lg:hidden h-52"
           />
           <img
-            src="/src/assets/waitressBig.svg"
+            src="/assets/waitressBig.svg"
             alt="logo la taverne"
             className="lg:flex hidden h-80"
           />

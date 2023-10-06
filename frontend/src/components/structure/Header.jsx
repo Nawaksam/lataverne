@@ -28,7 +28,7 @@ function Header() {
   return (
     <div className="w-full bg-primary flex items-center justify-between h-[10vh] min-h-[5rem] font-lobster text-white lg:text-5xl text-3xl p-2 lg:rounded-b-xl">
       <img
-        src="/src/assets/tender.svg"
+        src="/assets/tender.svg"
         alt="logo la taverne"
         className="h-[8vh] min-h-[5rem]"
       />

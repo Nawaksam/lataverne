@@ -1,5 +1,5 @@
 # Dockerfile backend
-FROM node:16.14
+FROM node:20
 
 WORKDIR /usr/src/app
 
@@ -20,6 +20,7 @@ ARG TOKEN_SECRET=${TOKEN_SECRET}
 
 COPY ./backend .
 
+RUN npm install -g npm@10.2.0
 RUN npm install
 
 CMD [ "npm", "start" ]
